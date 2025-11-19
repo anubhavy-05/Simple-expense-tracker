@@ -29,3 +29,11 @@ const expense = {
 
 // 4. Add the new object to the global array
 expenses.push(expense);
+// Function to save the current expenses array to Local Storage
+function saveExpenses() {
+    // Convert the JavaScript array into a JSON string
+    const expenseJSON = JSON.stringify(expenses);
+
+    // Save the JSON string to Local Storage under the key 'expenses'
+    localStorage.setItem('expenses', expenseJSON);
+}
