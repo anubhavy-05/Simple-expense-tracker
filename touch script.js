@@ -51,3 +51,9 @@ const expenseList = document.getElementById('expense-list');
 function renderExpenses() {
 
 }
+// 1. Clear the list container to prevent duplicates
+expenseList.innerHTML = '';
+// 2. Loop through the array
+expenses.forEach(expense => {
+    // This code will run for every item in the expenses array
+});
