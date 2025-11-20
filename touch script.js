@@ -81,3 +81,13 @@ function loadExpenses() {
 
 }
 const saved = localStorage.getItem('expenses');
+if (saved) {
+    // Convert the JSON string back into a JS array
+    expenses = JSON.parse(saved);
+
+} else {
+    // If no data is found, ensure the array is empty
+    expenses = [];
+}
+// 3. Display the loaded data
+renderExpenses();
