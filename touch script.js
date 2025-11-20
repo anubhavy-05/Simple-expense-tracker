@@ -45,3 +45,9 @@ saveExpenses(); // <--- ADD THIS LINE
 // console.log('New Expense:', { name, amount, date }); 
 // ... rest of the function
 }
+// Select the display container
+const expenseList = document.getElementById('expense-list');
+// Function to draw all expenses to the screen
+function renderExpenses() {
+
+}
