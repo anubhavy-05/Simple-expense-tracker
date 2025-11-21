@@ -152,3 +152,12 @@ if (confirm('Are you sure you want to delete this expense?')) {
     renderExpenses();
     updateTotal(); 
 }
+const exportButton = document.getElementById('export-btn');
+// Add event listener (near form.addEventListener)
+exportButton.addEventListener('click', exportData); 
+
+// Define function structure (near your other functions)
+function exportData() {
+    // Day 12 will handle the download logic here
+    console.log("Export button clicked!");
+}
