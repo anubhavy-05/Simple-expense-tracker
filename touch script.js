@@ -1,99 +1,91 @@
-// Select the form and inputs
+// Day 5 & 7: Global Data and Element Selection
+let expenses = []; 
+
 const form = document.getElementById('expense-form');
 const nameInput = document.getElementById('expense-name');
 const amountInput = document.getElementById('expense-amount');
 const dateInput = document.getElementById('expense-date');
-// Listen for the form submission
-form.addEventListener('submit', addExpense);
-// Function to handle adding a new expense
-function addExpense(event) {
+const expenseList = document.getElementById('expense-list'); // Day 6: List Container
 
-}
-event.preventDefault(); // Stop the page from refreshing
-// 1. Get the values from the input fields
-const name = nameInput.value.trim();
-const amount = amountInput.value;
-const date = dateInput.value;
-// 2. Log the values to the console for testing
-console.log('New Expense:', { name, amount, date });
-// Global array to store all expenses
-let expenses = []; 
-// const form = document.getElementById('expense-form'); (Your existing code starts here)
-// 3. Create the expense object
-const expense = {
-    id: Date.now(), // Unique ID based on the current time (milliseconds)
-    name: name,
-    amount: parseFloat(amount), // Convert the string amount to a number
-    date: date
-};
-
-// 4. Add the new object to the global array
-expenses.push(expense);
-// Function to save the current expenses array to Local Storage
+// Day 5: Save function
 function saveExpenses() {
-    // Convert the JavaScript array into a JSON string
     const expenseJSON = JSON.stringify(expenses);
-
-    // Save the JSON string to Local Storage under the key 'expenses'
     localStorage.setItem('expenses', expenseJSON);
-    // 4. Add the new object to the global array
-expenses.push(expense); 
-
-// 5. Save the updated array to Local Storage
-saveExpenses(); // <--- ADD THIS LINE
-
-// console.log('New Expense:', { name, amount, date }); 
-// ... rest of the function
 }
-// Select the display container
-const expenseList = document.getElementById('expense-list');
-// Function to draw all expenses to the screen
-function renderExpenses() {
 
-}
-// 1. Clear the list container to prevent duplicates
-expenseList.innerHTML = '';
-// 2. Loop through the array
-expenses.forEach(expense => {
-    // This code will run for every item in the expenses array
-});
-const itemHTML = `
-    <div class="expense-item" data-id="${expense.id}">
-        <div class="expense-info">
-            <h4>${expense.name}</h4>
-            <small>${expense.date}</small>
-        </div>
-        <div class="expense-cost">
-            <span>$${expense.amount.toFixed(2)}</span>
-            <button class="delete-btn" data-id="${expense.id}">&times;</button>
-        </div>
-    </div>
-`;
-// The toFixed(2) ensures the amount has two decimal places (e.g., 5.00)
-expenseList.innerHTML += itemHTML;
-// 5. Save the updated array to Local Storage
-saveExpenses();
-
-// 6. Update the display on the screen
-renderExpenses(); // <--- ADD THIS LINE
-// Function to retrieve and load expenses from Local Storage
+// Day 7: Load function
 function loadExpenses() {
-
+    const saved = localStorage.getItem('expenses');
+    
+    if (saved) {
+        expenses = JSON.parse(saved);
+    } else {
+        expenses = [];
+    }
+    
+    // We will call updateTotal later on Day 10
+    renderExpenses();
 }
-const saved = localStorage.getItem('expenses');
-if (saved) {
-    // Convert the JSON string back into a JS array
-    expenses = JSON.parse(saved);
 
-} else {
-    // If no data is found, ensure the array is empty
-    expenses = [];
+// Day 6: Render function
+function renderExpenses() {
+    expenseList.innerHTML = '';
+    
+    expenses.forEach(expense => {
+        const itemHTML = `
+            <div class="expense-item" data-id="${expense.id}">
+                <div class="expense-info">
+                    <h4>${expense.name}</h4>
+                    <small>${expense.date}</small>
+                </div>
+                <div class="expense-cost">
+                    <span>$${expense.amount.toFixed(2)}</span>
+                    <button class="delete-btn" data-id="${expense.id}">&times;</button>
+                </div>
+            </div>
+        `;
+        expenseList.innerHTML += itemHTML;
+    });
 }
-// 3. Display the loaded data
-renderExpenses();
-// Run this function when the script loads to load saved data
+
+// Day 4 & 5 & 6 & 7: Add Expense Handler
+function addExpense(event) {
+    event.preventDefault(); // Stop the page from refreshing
+
+    // 1. Get the values
+    const name = nameInput.value.trim();
+    const amount = amountInput.value;
+    const date = dateInput.value;
+    
+    // Simple validation: If any field is empty, stop.
+    if (name === '' || amount === '' || date === '') {
+        alert("Please fill out all fields.");
+        return; 
+    }
+
+    // 2. Create the expense object
+    const expense = {
+        id: Date.now(),
+        name: name,
+        amount: parseFloat(amount),
+        date: date
+    };
+
+    // 3. Update data
+    expenses.push(expense); 
+    saveExpenses();
+    
+    // 4. Update display
+    renderExpenses(); 
+    
+    // 5. Clear fields
+    nameInput.value = '';
+    amountInput.value = '';
+    dateInput.value = '';
+}
+
+// Event Listener (Day 4)
+form.addEventListener('submit', addExpense);
+
+// Initial Load (Day 7)
 loadExpenses();
-// 7. Clear the input fields
-nameInput.value = '';
-amountInput.value = '';
-dateInput.value = '';
