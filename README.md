@@ -4,6 +4,11 @@
 ![Status](https://img.shields.io/badge/Status-Complete-green)
 
 ---
+### Live Demo
+
+[**View Live Application Here**](https://YourUsername.github.io/simple-expense-tracker/)
+
+---
 ### Project Overview
 
 This is a client-side personal finance application designed to track daily expenses. It provides a clean, responsive interface for recording transactions, calculating a running total, and ensuring data persists across browser sessions.
